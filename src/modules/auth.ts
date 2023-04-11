@@ -16,7 +16,7 @@ export const comparePasswords = (password, hashedPassword) => {
  * @returns {String}
  */
 export const hashPassword = (password) => {
-  return bcrypt.hash(password, 10);
+  return bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT));
 };
 
 /**
