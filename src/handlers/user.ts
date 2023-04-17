@@ -29,5 +29,5 @@ export const signIn = async (req, res) => {
   }
 
   const token = createJWT(user);
-  res.status(200).json({ token });
+  res.status(201).json({ token });
 };

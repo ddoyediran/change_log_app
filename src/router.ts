@@ -1,31 +1,36 @@
 import { Router } from "express";
 import { body, validationResult } from "express-validator";
-import { inputValidation } from "./modules/validationMiddleware";
+import {
+  createProduct,
+  deleteProduct,
+  getOneProduct,
+  getProduct,
+  updateProduct,
+} from "./handlers/product";
+import { handleInputErrors } from "./modules/middleware";
 
 const router = Router();
 
 // Product routes
-router.get("/product", (req, res) => {
-  res.json({ message: "Working for product!" });
-});
+router.get("/product", getProduct);
 
-router.get("/product/:id", () => {});
+router.get("/product/:id", getOneProduct);
 
 router.post(
   "/product",
   body("name").isString(),
-  inputValidation,
-  (req, res) => {}
+  handleInputErrors,
+  createProduct
 );
 
 router.put(
   "/product/:id",
   body("name").isString(),
-  inputValidation,
-  (req, res) => {}
+  handleInputErrors,
+  updateProduct
 );
 
-router.delete("/product/:id", () => {});
+router.delete("/product/:id", deleteProduct);
 
 // Update routes
 router.get("/update", () => {});
@@ -36,7 +41,7 @@ router.post(
   "/update",
   body("title").isString().optional(),
   body("body").isString().optional(),
-  inputValidation,
+  handleInputErrors,
   (req, res) => {}
 );
 
@@ -47,7 +52,7 @@ router.put(
   body("status").isIn(["IN_PROGRESS", "LIVE", "DEPRECATED", "ARCHIVED"]),
   body("version").optional(),
   body("asset").optional(),
-  inputValidation,
+  handleInputErrors,
   (req, res) => {}
 );
 
@@ -62,7 +67,7 @@ router.post(
   body("name").isString(),
   body("description").isString(),
   body("updateId").exists().isString(),
-  inputValidation,
+  handleInputErrors,
   (req, res) => {}
 );
 
@@ -70,7 +75,7 @@ router.put(
   "/updatepoint/:id",
   body("name").isString(),
   body("description").isString(),
-  inputValidation,
+  handleInputErrors,
   (req, res) => {}
 );
 router.delete("/updatepoint/:id", () => {});
