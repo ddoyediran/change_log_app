@@ -8,6 +8,13 @@ import {
   updateProduct,
 } from "./handlers/product";
 import { handleInputErrors } from "./modules/middleware";
+import {
+  getUpdates,
+  getOneUpdate,
+  createUpdate,
+  updateUpdate,
+  deleteUpdate,
+} from "./handlers/update";
 
 const router = Router();
 
@@ -33,16 +40,17 @@ router.put(
 router.delete("/product/:id", deleteProduct);
 
 // Update routes
-router.get("/update", () => {});
+router.get("/update", getUpdates);
 
-router.get("/update/:id", () => {});
+router.get("/update/:id", getOneUpdate);
 
 router.post(
   "/update",
   body("title").isString().optional(),
   body("body").isString().optional(),
+  body("productId").exists().isString(),
   handleInputErrors,
-  (req, res) => {}
+  createUpdate
 );
 
 router.put(
@@ -53,10 +61,10 @@ router.put(
   body("version").optional(),
   body("asset").optional(),
   handleInputErrors,
-  (req, res) => {}
+  updateUpdate
 );
 
-router.delete("/update/:id", () => {});
+router.delete("/update/:id", deleteUpdate);
 
 // Update Point routes
 router.get("/updatepoint", () => {});
@@ -79,5 +87,9 @@ router.put(
   (req, res) => {}
 );
 router.delete("/updatepoint/:id", () => {});
+
+router.use((err, req, res, next) => {
+  res.json({ message: "In router handler" });
+});
 
 export default router;

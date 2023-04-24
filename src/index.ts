@@ -1,7 +1,8 @@
 import * as dotenv from "dotenv";
 dotenv.config();
+import config from "./config";
 import app from "./server";
 
-app.listen(7070, () => {
-  console.log(`Hello on  http://localhost:${7070}`);
+app.listen(config.port, () => {
+  console.log(`Hello on  http://localhost:${config.port}`);
 });

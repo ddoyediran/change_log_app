@@ -29,15 +29,19 @@ export const getOneProduct = async (req, res) => {
 };
 
 // CREATE a product for a user
-export const createProduct = async (req, res) => {
-  const product = await prisma.product.create({
-    data: {
-      name: req.body.name,
-      belongsToId: req.user.id,
-    },
-  });
+export const createProduct = async (req, res, next) => {
+  try {
+    const product = await prisma.product.create({
+      data: {
+        name: req.body.name,
+        belongsToId: req.user.id,
+      },
+    });
 
-  res.status(201).json({ data: product });
+    res.status(201).json({ data: product });
+  } catch (err) {
+    next(err);
+  }
 };
 
 // UPDATE a product for a user
