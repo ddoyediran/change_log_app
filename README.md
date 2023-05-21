@@ -15,9 +15,9 @@ PostgreSQL
 
 ### Registration routes
 
-1. Signin - `https://change-log-api-z93y.onrender.com/signin` - `POST`
+1. Signin - `POST` - `https://change-log-api-z93y.onrender.com/signin`
 
-2. Register - `https://change-log-api-z93y.onrender.com/user` - `POST`
+2. Register - `POST` - `https://change-log-api-z93y.onrender.com/user`
 
 ### Product endpoints routes:
 
